@@ -1,0 +1,9 @@
+### Python Environments
+env/
+venv/
+
+### vscode
+.vscode/*
+
+### Ignore input files
+*.txt
