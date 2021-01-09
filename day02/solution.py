@@ -2,36 +2,39 @@ import re
 import pprint
 
 def get_lines():
-    with open('day2\input.txt', 'r') as input_file:
+    with open('day02\input.txt', 'r') as input_file:
         lines = [line.rstrip().split(':') for line in input_file]
         return lines
 
 
-def count_valid_passwords():
-    lines = get_lines()
-    count = 0;
+def count_valid_passwords_by_letter_count(lines):
+    count_valid_pass = 0;
     for line in lines:
-        letter = line[0][-1]
-        minimum, maximum = re.findall('\d+',line[0])
-        count_letters = line[1].count(letter)
-        if count_letters <= int(maximum) and count_letters >= int(minimum):
-            count += 1
-    print(count)
+        required_letter = line[0][-1]
+        min_rep, max_rep = re.findall('\d+', line[0])
+        password = line[1]
+        count_required_letters = password.count(required_letter)
+        if count_required_letters <= int(max_rep) and count_required_letters >= int(min_rep):
+            count_valid_pass += 1
+    return count_valid_pass
 
-def count_valid_passwords2():
-    lines = get_lines()
-    count = 0;
+def count_valid_passwords_by_letter_position(lines):
+    count_valid_pass = 0;
     for line in lines:
-        letter = line[0][-1]
-        position1, position2 = re.findall('\d+',line[0])
-        first_letter = line[1].strip()[int(position1) - 1]
-        second_letter = line[1].strip()[int(position2) - 1]
-        if (first_letter == letter and second_letter != letter) or (first_letter != letter and second_letter == letter):
-            count += 1
-    print(count)
+        required_letter = line[0][-1]
+        first_position, second_position = re.findall('\d+',line[0])
+        password = line[1]
+        first_letter = password.strip()[int(first_position) - 1]
+        second_letter = password.strip()[int(second_position) - 1]
+        if ((first_letter == required_letter and second_letter != required_letter) or
+            (first_letter != required_letter and second_letter == required_letter)):
+            count_valid_pass += 1
+    return count_valid_pass
 
 def main():
-    count_valid_passwords2()
+    lines = get_lines()
+    print('Solution to first puzzle: ' + str(count_valid_passwords_by_letter_count(lines)))
+    print('Solution to second puzzle: ' + str(count_valid_passwords_by_letter_position(lines)))
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,4 @@
-import re
 import pprint
-
 
 def get_numbers():
     with open('day01\input.txt', 'r') as input_file:
@@ -24,11 +22,11 @@ def find_ternary_sum_target(numbers, target):
 def main():
     numbers = get_numbers()
 
-    #First puzzle
+    # First puzzle
     number1, number2 = find_pair_sum_target(numbers, 2020)
     print('Solution to first puzzle: ' + str(number1 * number2))
 
-    #Second puzzle
+    # Second puzzle
     numbers.sort()
     min_number1, min_number2 = numbers[0], numbers[1]
     max_value_for_puzzle_2 = 2020 - min_number1 - min_number2
